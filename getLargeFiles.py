@@ -1,6 +1,5 @@
 import os
 import pwd
-import sys
 from datetime import datetime
 import argparse
 
@@ -20,17 +19,18 @@ size = args.size
 large_files = []
 file_sizes = []
 
+
 def get_large_files(search_path) -> None:
 
-    '''
-    :param search_path: The path to search for large files
+    """
+    :param search_path: The root path to search for large files
     :return: Nothing
-    '''
+    """
 
     for root, dirs, files in os.walk(search_path):
-        for file in files:
+        for curr_file in files:
             try:
-                file_path = os.path.join(root, file)
+                file_path = os.path.join(root, curr_file)
                 file_size = os.path.getsize(file_path) / (1024 * 1024)
                 if file_size > size:
                     file_owner_id = os.stat(file_path).st_uid
